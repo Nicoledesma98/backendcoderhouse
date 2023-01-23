@@ -6,29 +6,35 @@ class ProductManager {
     }
     addProduct(title, description, price, thumbnail, code, stock) {
         this.products.push({
-            title: "producto",
-            description: "description",
-            price: "$200",
-            thumbnail: "./cama-gato.jpg",
-            code: idUnico(20000),
-            stock: 20
+            title,
+            description,
+            price,
+            thumbnail,
+            code,
+            stock,
+             id: idUnico(20000)
+           
         })
-        console.log(this.products)
-        console.log(this.products.some(producto => producto.code === idUnico))
+        console.log("si es TRUE es porque ya existe ese code del producto, si es FALSE es porque no.",
+                    this.products.some(producto => producto.code === code))
     }
     getProducts() {
-        this.products.forEach(element => console.log(element))
+        return this.products
     }
     getProductById(id) {
         // logica para obtener un producto por id
-        if (condition) {
-
+        if (this.products.find(producto=>producto.id === idUnico)) {
+            return console.log ("id encontrado",this.products) 
         }
+        else console.log("not found,producto no encontrado")
+
+        
     }
 }
 function idUnico(max) {
     return Math.floor(Math.random() * max);
 }
-const product = new ProductManager()
-product.addProduct()
-product.getProducts()
+const products = new ProductManager()
+products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210")
+console.log(products.getProducts())
+products.getProductById()
