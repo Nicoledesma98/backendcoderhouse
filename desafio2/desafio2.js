@@ -12,16 +12,16 @@ class ProductManager {
         }
         return this.idUnic
     }
-    addProduct = async(title, description, price, thumbnail, code, stock) => {
+    addProduct = async (title, description, price, thumbnail, code, stock) => {
         const readProduct = await this.getProducts()
         readProduct.push({
-             title,
+            title,
             description,
             price,
             thumbnail,
             code,
             stock,
-            id : ProductManager.idUnico()
+            id: ProductManager.idUnico()
         }
         )
         await fs.promises.writeFile("./desafio2.txt", JSON.stringify(readProduct))
@@ -29,35 +29,36 @@ class ProductManager {
     }
     getProducts = async () => {
         const readProduct = await fs.promises.readFile(this.path, 'utf-8')
-        return JSON.parse(readProduct) 
+        return JSON.parse(readProduct)
     }
     getProductById = async (id) => {
         // logica para obtener un producto por id
         console.log("estamos en getproduct")
         const readProduct = await this.getProducts()
         if (readProduct.find(producto => producto.id === id)) {
-            console.log("id "+id+ " encontrado")
+            console.log("id " + id + " encontrado")
             return readProduct
         }
-        else return "producto con id "+ id + " no encontrado"
+        else return "producto con id " + id + " no encontrado"
     }
-
-    updateProduct = async ({title,description,price,thumbnail,code,stock},id) =>{
-        return
+    updateProduct = async (id,title,description,price,thumbnail,code,stock,) => {
+        const updatePr = await this.getProducts()
+        console.log('esto es productId',id)
+        const updateInd = updatePr.findIndex(producto => producto.id === id)
+        updatePr[updateInd] = [{id,title,description,price,thumbnail,code,stock}]
+        await fs.promises.writeFile("./desafio2.txt", JSON.stringify(updatePr[updateInd]))
+        return updatePr[updateInd]
     }
     deleteProduct = async (id) => {
         const productTxt = await this.getProducts()
-        
         if (productTxt.some(producto => producto.id === id)) {
             const fileProduct = productTxt.filter(producto => producto.id !== id)
-            await fs.promises.writeFile("./desafio2.txt",JSON.stringify(fileProduct))
+            await fs.promises.writeFile("./desafio2.txt", JSON.stringify(fileProduct))
             return fileProduct
-            
         } else {
             return "no se encontro producto"
         }
-        
-    } 
+    }
 }
 const products = new ProductManager()
 const main = async () => {
@@ -66,9 +67,8 @@ const main = async () => {
     console.log(await products.getProducts())
     console.log("producto por id")
     console.log(await products.getProductById(1))
-    console.log( await products.updateProduct(1))
+    console.log(await products.updateProduct(1,"Cucha de Perro","Cucha de perro hecho con fibra","$5000","cucha-perro.jpg","A4581EDE","300"))
     console.log("funcion deleteproduct")
     console.log(await products.deleteProduct(2))
-    
 }
 main()

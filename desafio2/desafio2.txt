@@ -1,1 +1,1 @@
-[{"title":"Cama Gato","description":"Cama para gato con corderito","price":"$2000","thumbnail":"cama-gato.jpg","code":"A123FDE","stock":"210","id":1}]
+[{"id":1,"title":"Cucha de Perro","description":"Cucha de perro hecho con fibra","price":"$5000","thumbnail":"cucha-perro.jpg","code":"A4581EDE","stock":"300"}]
