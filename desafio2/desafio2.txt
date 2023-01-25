@@ -1,0 +1,1 @@
+[{"title":"Cama Gato","description":"Cama para gato con corderito","price":"$2000","thumbnail":"cama-gato.jpg","code":"A123FDE","stock":"210","id":1}]
