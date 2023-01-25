@@ -1,10 +1,28 @@
 
 class ProductManager {
 
+
     constructor() {
         this.products = [];
     }
     addProduct(title, description, price, thumbnail, code, stock) {
+        const product = {
+            title,
+            description,
+            price,
+            thumbnail,
+            code,
+            stock,
+            id: idUnico(20000)
+        }
+        if (this.#hasValuesUndefined(product)) {
+            console.log("hay un campo indefinido")
+            return
+        }
+        if (this.#hasCodeRepit(code)) {
+            console.log("se repite el code")
+            return
+        }
         this.products.push({
             title,
             description,
@@ -12,24 +30,27 @@ class ProductManager {
             thumbnail,
             code,
             stock,
-             id: idUnico(20000)
-           
+            id: idUnico(20000)
         })
-        console.log("si es TRUE es porque ya existe ese code del producto, si es FALSE es porque no.",
-                    this.products.some(producto => producto.code === code))
     }
     getProducts() {
         return this.products
     }
     getProductById(id) {
         // logica para obtener un producto por id
-        if (this.products.find(producto=>producto.id === idUnico)) {
-            return console.log ("id encontrado",this.products) 
+        const product = this.products.find(producto => producto.id === id)
+        if (product) {
+            return product
         }
         else console.log("not found,producto no encontrado")
-
-        
     }
+    #hasValuesUndefined(product) {
+        return Object.values(product).some((element) => element == undefined);
+    }
+    #hasCodeRepit(code) {
+        return this.products.some(producto => producto.code === code)
+    }
+
 }
 function idUnico(max) {
     return Math.floor(Math.random() * max);
