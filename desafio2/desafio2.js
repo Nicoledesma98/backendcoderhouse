@@ -47,13 +47,17 @@ class ProductManager {
     }
     deleteProduct = async (id) => {
         const productTxt = await this.getProducts()
+        
         if (productTxt.some(producto => producto.id === id)) {
             const fileProduct = productTxt.filter(producto => producto.id !== id)
+            await fs.promises.writeFile("./desafio2.txt",JSON.stringify(fileProduct))
             return fileProduct
+            
         } else {
             return "no se encontro producto"
         }
-    }
+        
+    } 
 }
 const products = new ProductManager()
 const main = async () => {
@@ -64,6 +68,7 @@ const main = async () => {
     console.log(await products.getProductById(1))
     console.log( await products.updateProduct(1))
     console.log("funcion deleteproduct")
-    console.log(await products.deleteProduct(1))
+    console.log(await products.deleteProduct(2))
+    
 }
 main()
