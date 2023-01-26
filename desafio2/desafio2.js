@@ -46,7 +46,7 @@ class ProductManager {
         console.log('esto es productId',id)
         const updateInd = updatePr.findIndex(producto => producto.id === id)
         updatePr[updateInd] = [{id,title,description,price,thumbnail,code,stock}]
-        await fs.promises.writeFile("./desafio2.txt", JSON.stringify(updatePr[updateInd]))
+        await fs.promises.writeFile("./desafio2.txt", JSON.stringify(updatePr))
         return updatePr[updateInd]
     }
     deleteProduct = async (id) => {
@@ -63,6 +63,10 @@ class ProductManager {
 const products = new ProductManager()
 const main = async () => {
     await fs.promises.writeFile("./desafio2.txt", JSON.stringify([])) //iniciando el txt
+    console.log(await products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210"))
+    console.log(await products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210"))
+    console.log(await products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210"))
+    console.log(await products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210"))
     console.log(await products.addProduct("Cama Gato", "Cama para gato con corderito", "$2000", "cama-gato.jpg", "A123FDE", "210"))
     console.log(await products.getProducts())
     console.log("producto por id")
