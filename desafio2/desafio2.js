@@ -75,4 +75,6 @@ const main = async () => {
     console.log("funcion deleteproduct")
     console.log(await products.deleteProduct(2))
 }
-main()
+// main()
+
+module.exports = ProductManager
